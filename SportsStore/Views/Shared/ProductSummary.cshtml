@@ -1,0 +1,32 @@
+﻿
+@model Haber
+
+
+<div class="card card-outline-primary m-1 p-1">
+    <div class="row">
+
+        <div class="col-3"> <img src=@Model.ResimYolu style="width:100%"></div>
+        <div class="col-7">
+
+            <div class="bg-faded p-1">
+                <h4>
+                    @Model.Baslik
+                </h4>
+            </div>
+
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" name="returnUrl"
+                   value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+            <span class="card-text p-1">
+                @Model.Metin
+
+            </span>
+
+        </div>
+    </div>
+   
+   
+
+</div>
+
+

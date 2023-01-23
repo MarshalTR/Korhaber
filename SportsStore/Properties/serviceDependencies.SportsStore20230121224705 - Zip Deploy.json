@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "mssql2": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/identitydatabaseserver/databases/IdentityDB",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:IdentityConnection",
+      "secretStore": "AzureAppSettings"
+    },
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/identitydatabaseserver/databases/KorhaberDB",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:SportsStoreConnection",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}

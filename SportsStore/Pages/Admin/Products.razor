@@ -1,0 +1,67 @@
+﻿@page "/admin/products"
+@page "/admin"
+@inherits OwningComponentBase<IStoreRepository>
+
+<table class="table table-sm table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th><th>Başlık</th>
+            <th>Metin</th><th>Resim</th><td/>
+        </tr>
+    </thead>
+    <tbody>
+        @if (HaberData?.Count() > 0) {
+            @foreach (Haber p in HaberData) {
+                <tr>
+                    <td>@p.Id</td>
+                    <td>@p.Baslik</td>
+                    <td>@p.Metin</td>
+                    <td>@p.ResimYolu</td>
+                    <td>
+                        <NavLink class="btn btn-info btn-sm"
+                                 href="@GetDetailsUrl(p.Id)">
+                            Details
+                        </NavLink>
+                        <NavLink class="btn btn-warning btn-sm"
+                                 href="@GetEditUrl(p.Id)">
+                            Edit
+                        </NavLink>
+                        <button class="btn btn-danger btn-sm"
+                                 @onclick="@(e => DeleteProduct(p))">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            }
+        } else {
+            <tr>
+                <td colspan="5" class="text-center">No Products</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<NavLink class="btn btn-primary" href="/admin/products/create">Create</NavLink>
+
+@code {
+
+    public IStoreRepository Repository => Service;
+
+    public IEnumerable<Haber> HaberData { get; set; }
+
+    protected async override Task OnInitializedAsync() {
+        await UpdateData();
+    }
+
+    public async Task UpdateData() {
+        HaberData = await Repository.Haberler.ToListAsync();
+    }
+
+    public async Task DeleteProduct(Haber p) {
+        Repository.DeleteProduct(p);
+        await UpdateData();
+    }
+
+    public string GetDetailsUrl(long id) => $"/admin/products/details/{id}";
+    public string GetEditUrl(long id) => $"/admin/products/edit/{id}";
+}
